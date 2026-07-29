@@ -13,7 +13,7 @@ class LoginPage:
         self.username_input = (By.XPATH, '//*[@id="user-name"]')
         self.password_input = (By.XPATH, '//*[@id="password"]')
         self.login_btn = (By.XPATH, '//*[@id="login-button"]')
-
+        self.message = (By.XPATH, '//*[@id="login_button_container"]/div/form/div[3]')
 
     def inserting_values_in_input_fields(self, username, password):
         self.wait.until(ec.visibility_of_element_located(self.username_input)).send_keys(username)
@@ -23,4 +23,7 @@ class LoginPage:
         self.wait.until(ec.visibility_of_element_located(self.login_btn)).click()
 
     def verifying_if_url_has_been_changed(self):
-        return self.driver.current_url
+        return self.wait.until(ec.url_to_be('https://www.saucedemo.com/inventory.html'))
+
+    def see_message(self):
+        return self.wait.until(ec.visibility_of_element_located(self.message)).text
